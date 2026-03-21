@@ -1,1 +1,3 @@
 # minesweeper-marie
+
+Link de documentación en Notion: <https://www.notion.so/Documentaci-n-Proyecto-Buscaminas-32ad6633c0378004ad1afc20a0971c7d?source=copy_linkl>
