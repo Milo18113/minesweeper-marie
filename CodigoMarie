@@ -1,0 +1,52 @@
+/ --- INPUTS DEL USUARIO ---
+MainLoop,   Input           / Pedir Fila (0-15)
+            Store Fila
+            
+            Input           / Pedir Columna (0-15)
+            Store Columna
+            
+            Input           / Pedir Accion (Solo 1 o 2)
+            Store Accion
+
+/ --- VALIDACION DE COORDENADAS ---
+            Load Fila       / Cargamos la fila ingresada
+            Subt Quince     / Le restamos 15
+            Skipcond 800    / Si fila >=16 saltamos
+            Jump ValCol     / Si es valido (fila <= 15) validamos columna
+            Jump MainLoop   / Si es inválido (fila >15) volvemos a pedir todos los inputs
+
+ValCol,     Load Columna    / Validacion de columna
+            Subt Quince
+            Skipcond 800
+            Jump ValAccion
+            Jump MainLoop   / Si es inválido volvemos a pedir todo los inputs
+
+
+ValAccion,  Load Accion     / Cargar Accion
+            Subt Uno        / Le restamos 1
+            Skipcond 400    / Si el resultado es 0 (Accion = 1)
+            Jump CheckDos   / Si no fue 1 revisamos si es 2
+            Jump CalcDir    / Accion = 1
+
+CheckDos,   Load Accion     / Cargar accion
+            Subt Dos        / Le restamos 2
+            Skipcond 400    / Si el resultado es 0 (Accion = 2)
+            Jump MainLoop   / No fue ni 1 ni 2 y se vuelve a pedir todos los inputs
+            Jump CalcDir    / Accion = 2
+
+
+CalcDir, Load Cero
+
+/ --- VARIABLES ---
+Fila,       HEX 0
+Columna,    HEX 0
+Accion,     HEX 0
+
+/ --- CONSTANTES ---
+Cero, 		DEC 0
+Quince,     DEC 15
+Uno, 		DEC 1
+Dos, 		DEC 2
+
+
+
