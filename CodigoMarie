@@ -35,18 +35,88 @@ CheckDos,   Load Accion     / Cargar accion
             Jump CalcDir    / Accion = 2
 
 
-CalcDir, Load Cero
+CalcDir,    Load Cero       / Paso 1: Inicializar el Offset en 0
+            Store Offset
+            Load Fila       / Copiamos el valor de Fila al Contador
+            Store Contador
+
+/ --- BUCLE DE MULTIPLICACION (Fila * 16) ---
+MultLoop,   Load Contador   
+            Skipcond 400    / Si el Contador llegó a 0, terminamos de sumar
+            Jump Sumar16    / Si no es 0, vamos a sumar 16
+            Jump FinMult    / Salimos del bucle si ya es 0
+
+Sumar16,    Load Offset     / Agarramos el Offset que tenemos
+            Add Dieciseis   / Le sumamos 16
+            Store Offset    
+            Load Contador   / Le restamos 1 al Contador
+            Subt Uno
+            Store Contador
+            Jump MultLoop   / Volvemos a evaluar el ciclo
+
+/ --- SUMAR LA COLUMNA Y LAS BASES ---
+FinMult,    Load Offset     / Paso 2: Ya tenemos (Fila * 16). Ahora sumamos la columna.
+            Add Columna
+            Store Offset    / Offset = (Fila * 16) + Columna
+
+            / Paso 3: Calcular direccion exacta del tablero visible
+            Load BaseVis    / (0x200)
+            Add Offset      
+            Store DirVis    /  DirVis apunta a la celda exacta en el tablero visible
+
+            / Paso 4: Calcular direccion exacta del tablero real
+            Load BaseReal   / (0x100)
+            Add Offset
+            Store DirReal   /  DirReal apunta a la celda exacta en el tablero real
+
+/ --- RUTEO DE ACCION ---
+RuteoAct,   Load Accion
+            Subt Uno
+            Skipcond 400    / Si Accion == 1 (Revelar), salta la siguiente instruccion
+            Jump AccionDos  / No es 1, entonces es 2 (Bandera). Salta a la logica de Bandera
+            Jump AccionUno  / Es 1. Salta a la logica de Revelar Celda
+
+/ --- LOGICA ACCION 2 (BANDERA) ---
+AccionDos,  LoadI DirVis    / Leemos el estado actual de la celda en el tablero visible
+            Skipcond 400    / Si el valor es 0 (oculta), salta la siguiente instruccion
+            Jump CheckBand  / Si no es 0, revisamos si ya tiene bandera (o si esta revelada)
+            
+            / Caso 1: La celda estaba oculta (0). Le ponemos bandera (2).
+            Load Dos
+            StoreI DirVis   / Guardamos el 2 en esa direccion
+            Jump FinTurno   / Terminamos el turno
+            
+CheckBand,  LoadI DirVis    / Volvemos a leer el estado actual de la celda
+            Subt Dos
+            Skipcond 400    / Si el valor era 2 (bandera), salta la siguiente instruccion
+            Jump FinTurno   / Si no era ni 0 ni 2, significa que era 1 (revelada). No hacemos nada.
+            
+            / Caso 2: La celda tenia bandera (2). Se la quitamos (la volvemos 0).
+            Load Cero
+            StoreI DirVis   / Guardamos el 0 en esa direccion para quitar bandera
+            Jump FinTurno   / Terminamos el turno
+
+/ --- ETIQUETA TEMPORAL PARA COMPILAR ---
+AccionUno,  Halt            / Por ahora ponemos Halt aqui para que no de error. Luego lo cambiaremos.
+FinTurno,   Jump MainLoop   / Terminamos la jugada y volvemos a pedir inputs
+
+
+
 
 / --- VARIABLES ---
 Fila,       HEX 0
 Columna,    HEX 0
 Accion,     HEX 0
+Offset,     HEX 0      / Guardará el resultado de (Fila * 16 + Columna)
+Contador,   HEX 0      
+DirVis,     HEX 0      / Guardará la dirección final del Tablero Visible
+DirReal,    HEX 0
+BaseReal,   HEX 100
+BaseVis,    HEX 200
 
 / --- CONSTANTES ---
 Cero, 		DEC 0
 Quince,     DEC 15
 Uno, 		DEC 1
 Dos, 		DEC 2
-
-
-
+Dieciseis,  DEC 16
