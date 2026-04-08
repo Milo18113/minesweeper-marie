@@ -639,7 +639,19 @@ EsSeguro,   Load UNO         / 4. Es seguro revelar. Actualizamos el Tablero Vis
             StoreI DirVis   / Cambiamos el estado visible a 1 (revelada)
             Jump FinTurno   
 
-GameOver,   Halt            / Fin del juego por pisar mina
+GameOver,   Load INIDISPLAY            / Fin del juego por pisar mina
+			Store Contador
+GOCond,		Load FINDISPLAY
+			Subt Contador
+			SkipCond 0800
+			Halt
+GOLoop,		Load COL_3
+			StoreI Contador
+			Load Contador
+			Add UNO
+			Store Contador
+			Jump GOCond
+			
 
 FinTurno,   Jump MainLoop   / Fin del turno (jugada exitosa). Volvemos a pedir inputs.
 
@@ -676,7 +688,11 @@ TRECE, 		DEC 13
 CATORCE, 	DEC 14
 QUINCE, 	DEC 15
 DIECISEIS, 	DEC 16
+DOSCINCOSEIS, HEX 100
 VALORMINA,  DEC -1
+
+INIDISPLAY, HEX 0F00
+FINDISPLAY, HEX 1000
 
 / --- CONSTANTES DE COLOR ---
 
