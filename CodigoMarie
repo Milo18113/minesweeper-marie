@@ -96,9 +96,35 @@ CheckBand,  LoadI DirVis    / Volvemos a leer el estado actual de la celda
             StoreI DirVis   / Guardamos el 0 en esa direccion para quitar bandera
             Jump FinTurno   / Terminamos el turno
 
-/ --- ETIQUETA TEMPORAL PARA COMPILAR ---
-AccionUno,  Halt            / Por ahora ponemos Halt aqui para que no de error. Luego lo cambiaremos.
-FinTurno,   Jump MainLoop   / Terminamos la jugada y volvemos a pedir inputs
+/ --- LOGICA ACCION 1 (REVELAR CELDA) ---
+AccionUno,  LoadI DirVis    / 1. Verificamos el estado en el Tablero Visible
+            Subt Dos
+            Skipcond 400    / Si el valor es 2 (bandera), saltamos
+            Jump CheckRev   / Si no es 2, verificamos si es 1
+            Jump FinTurno   / Es 2 (bandera). No revelamos. Protegemos al jugador.
+
+CheckRev,   LoadI DirVis    
+            Subt Uno
+            Skipcond 400    / Si el valor es 1 (ya esta revelada), saltamos
+            Jump LeerReal   / Si no es 1 ni 2, entonces es 0 (oculta). Procedemos a revelar.
+            Jump FinTurno   / Ya estaba revelada (1). No hacemos nada.
+
+LeerReal,   LoadI DirReal   / 2. Leemos el Tablero Real (la verdad oculta)
+            Store ValReal   / Guardamos el contenido de la celda (FFF o un numero 0-8)
+            
+            / 3. Verificamos si es una mina (-1 que en hex es FFF)
+            Subt ValorMina  
+            Skipcond 400    / Si el resultado es 0, significa que era una mina
+            Jump EsSeguro   / No es mina. Saltamos a marcarla como revelada.
+            Jump GameOver   / ¡Es mina! El jugador pierde.
+
+EsSeguro,   Load Uno         / 4. Es seguro revelar. Actualizamos el Tablero Visible
+            StoreI DirVis   / Cambiamos el estado visible a 1 (revelada)
+            Jump FinTurno   
+
+GameOver,   Halt            / Fin del juego por pisar mina
+
+FinTurno,   Jump MainLoop   / Fin del turno (jugada exitosa). Volvemos a pedir inputs.
 
 
 
@@ -113,6 +139,7 @@ DirVis,     HEX 0      / Guardará la dirección final del Tablero Visible
 DirReal,    HEX 0
 BaseReal,   HEX 100
 BaseVis,    HEX 200
+ValReal,    HEX 0     / Valores que sacamos de la tabla real
 
 / --- CONSTANTES ---
 Cero, 		DEC 0
@@ -120,3 +147,11 @@ Quince,     DEC 15
 Uno, 		DEC 1
 Dos, 		DEC 2
 Dieciseis,  DEC 16
+ValorMina,  DEC -1
+
+
+
+
+
+
+
