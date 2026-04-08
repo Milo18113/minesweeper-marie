@@ -1,0 +1,7 @@
+# Archivos generados por el generador de tablero
+memoria_buscaminas.mas
+memoria_buscaminas_random.mas
+
+# Imágenes de tableros generados
+tablero_buscaminas.png
+tablero_buscaminas_random.png
