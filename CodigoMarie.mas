@@ -637,14 +637,21 @@ LeerReal,   LoadI DirReal   / 2. Leemos el Tablero Real (la verdad oculta)
 
 EsSeguro,   Load UNO         / 4. Es seguro revelar. Actualizamos el Tablero Visible
             StoreI DirVis   / Cambiamos el estado visible a 1 (revelada)
+			JnS DrawDirVis
 
 			Load FaltanRevelar
             Subt UNO
             Store FaltanRevelar / Restamos 1 a las celdas que faltan
+
+			JnS RevelarAreaSR		/ Subrutina de revelar las celdas correspondiente al hacer click
+
+			Load FaltanRevelar
             Skipcond 400        / Si el resultado es 0, ya no faltan celdas
             Jump FinTurno       / Si no es 0, el turno termina normal
             Jump Victoria       / Contador llega a 0 -> Saltamos a ganar
 
+
+/ --- GAME OVER Y GANAR ---
 GameOver,   Load INIDISPLAY            / Fin del juego por pisar mina, Ini
 			Store Contador
 GOCond,		Load FINDISPLAY
@@ -675,6 +682,75 @@ VicLoop,    Load COL_2      / Pintar de verde para indicar victoria
 FinTurno,   Jump MainLoop   / Fin del turno (jugada exitosa). Volvemos a pedir inputs.
 
 
+/ --- SUBRUTINAS ---
+DrawDirVis, Dec 0			/ Usando DirVis y ValReal como parámetro
+			Load DirVis
+			Subt BaseVis		/ Calcular offset
+			Add INIDISPLAY		
+			Store DisplayPos    / Puntero en display con offset
+				
+			JnS GetColor		/ Obtener color en base a número en mapa real
+			Load ColReturn
+			StoreI DisplayPos
+			
+			Jump DrawDirVis		/ Acabar subrutina DrawDirVis
+
+
+GetColor, 	Dec 0			/ Usando ValReal como parámetro
+			Load ValReal
+            SkipCond 0C00       / Si ValReal != 0, saltar
+                Jump Ret0       / else, asignar color 0
+            Subt UNO
+            SkipCond 0C00       / Si ValReal != 1, saltar
+                Jump Ret1       / else, asignar color 1
+            Subt UNO
+            SkipCond 0C00       / Si ValReal != 2, saltar
+                Jump Ret2       / else, asignar color 2
+            Subt UNO
+            SkipCond 0C00       / Si ValReal != 3, saltar
+                Jump Ret3       / else, asignar color 3
+            Subt UNO
+            SkipCond 0C00       / Si ValReal != 4, saltar
+                Jump Ret4       / else, asignar color 4
+            Subt UNO
+            SkipCond 0C00       / Si ValReal != 5, saltar
+                Jump Ret5       / else, asignar color 5
+            Subt UNO
+            SkipCond 0C00       / Si ValReal != 6, saltar
+                Jump Ret6       / else, asignar color 6
+            Subt UNO
+            SkipCond 0C00       / Si ValReal != 7, saltar
+                Jump Ret7       / else, asignar color 7
+            Subt UNO
+            SkipCond 0C00       / Si ValReal != 8, saltar
+                Jump Ret8       / else, asignar color 8
+
+Ret0, 		Load COL_0
+			Jump GetColorEnd
+Ret1, 		Load COL_1
+			Jump GetColorEnd
+Ret2, 		Load COL_2
+			Jump GetColorEnd
+Ret3, 		Load COL_3
+			Jump GetColorEnd
+Ret4, 		Load COL_4
+			Jump GetColorEnd
+Ret5, 		Load COL_5
+			Jump GetColorEnd
+Ret6, 		Load COL_6
+			Jump GetColorEnd
+Ret7, 		Load COL_7
+			Jump GetColorEnd
+Ret8, 		Load COL_8
+			Jump GetColorEnd
+			
+GetColorEnd, Store ColReturn
+			Jump GetColor
+
+
+RevelarAreaSR, DEC 0
+
+			Jump RevelarAreaSR
 
 
 / --- VARIABLES ---
@@ -686,6 +762,8 @@ Contador,   HEX 0
 DirVis,     HEX 0      / Guardará la dirección final del Tablero Visible
 DirReal,    HEX 0
 ValReal,    HEX 0     / Valores que sacamos de la tabla real
+DisplayPos, HEX 0		/ Puntero para dibujar en display
+ColReturn,  HEX 0		/ Valor procesado de color según número 
 FaltanRevelar, DEC 256 /contador de celdas que debemos abrir para ganar (256 - cantidad de minas)
 
 / --- CONSTANTES ---
