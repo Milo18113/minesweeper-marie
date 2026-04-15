@@ -601,6 +601,11 @@ AccionDos,  LoadI DirVis    / Leemos el estado actual de la celda en el tablero 
             / Caso 1: La celda estaba oculta (0). Le ponemos bandera (2).
             Load DOS
             StoreI DirVis   / Guardamos el 2 en esa direccion
+
+			/ Input
+			Load DirVis		/ Asignar DirVis a CurrVis para subrutina
+			Store CurrVis
+			JnS DrawFlag	/ Subrutina con param CurrVis
             Jump FinTurno   / Terminamos el turno
             
 CheckBand,  LoadI DirVis    / Volvemos a leer el estado actual de la celda
@@ -687,7 +692,7 @@ FinTurno,   Jump MainLoop   / Fin del turno (jugada exitosa). Volvemos a pedir i
 
 
 / --- SUBRUTINAS ---
-DrawCurrVis, Dec 0			/ Usando CurrVis y ValReal como parámetro
+DrawCurrVis, Dec 0			/ Usando CurrVis y ValReal (para ColReturn) como parámetro
 			Load CurrVis
 			Subt BaseVis		/ Calcular offset
 			Add INIDISPLAY		
@@ -695,6 +700,18 @@ DrawCurrVis, Dec 0			/ Usando CurrVis y ValReal como parámetro
 				
 			JnS GetColor		/ Obtener color en base a número en mapa real
 			Load ColReturn
+			StoreI DisplayPos
+			
+			JumpI DrawCurrVis		/ Acabar subrutina DrawDirVis
+
+DrawFlag,	Dec 0			/ Usando CurrVis como parámetro
+			Load CurrVis
+			Subt BaseVis		/ Calcular offset
+			Add INIDISPLAY		
+			Store DisplayPos    / Puntero en display con offset
+				
+			Load COL_BANDERA
+			Store ColReturn
 			StoreI DisplayPos
 			
 			JumpI DrawCurrVis		/ Acabar subrutina DrawDirVis
