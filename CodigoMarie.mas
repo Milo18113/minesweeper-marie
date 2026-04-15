@@ -759,7 +759,7 @@ GetColorEnd, Store ColReturn
 / Si ValReal == 0, flood fill iterativo
 / =============================================
 RevelarAreaSR, Dec 0
-			Input
+			/ Input
             / Si el valor no es 0, no hay expansión
             Load ValReal
             SkipCond 400        / Si ValReal == 0, salta
@@ -809,7 +809,7 @@ PasadaLoop, Load CurrOffset
 
             / Revisar los 4 vecinos ortogonales (arriba, abajo, izq, der)
             / ---- VECINO ARRIBA (offset - 16) ----
-            Load FilaActual
+CheckArriba, Load FilaActual
             SkipCond 400        / Si FilaActual == 0, no hay vecino arriba
             Jump RevArriba
             Jump CheckAbajo
@@ -854,6 +854,29 @@ RevDer,     Load CurrOffset
             Store VecOffset
             JnS RevVecino
 
+			/ Input
+
+/ / Vecinos Diagonales
+
+/ CheckNW, 	Load ColActual
+/             Subt QUINCE
+/             SkipCond 400        / Si ColActual == 15, no hay vecino der
+/             Jump RevNW
+/             Jump SigCelda
+/ RevNW,		Load CurrOffset
+/             Subt DIECISIETE
+/             Store VecOffset
+/             JnS RevVecino
+
+/ CheckNE,
+/ RevNE,
+
+/ CheckSW,
+/ RevSW
+
+/ CheckSE,
+/ RevSE,
+
 SigCelda,   Load CurrOffset
             Add UNO
             Store CurrOffset
@@ -879,7 +902,7 @@ RevVecino,  Dec 0
             Add VecOffset
             Store TmpVis        / dirección visible del vecino
             LoadI TmpVis
-            SkipCond 400        / Si == 0 (oculto), salta
+            SkipCond 400        / Si Val en [TmpVis] == 0 (oculto), salta
             JumpI RevVecino     / Ya está revelado o tiene bandera, saltar
 
             / Leer valor real del vecino
@@ -937,11 +960,11 @@ DivLoop,    Load TmpDiv
             Load FilaActual
             Add UNO
             Store FilaActual
+			/ Input
             Jump DivLoop
 
-DivEnd,     Load TmpDiv         / lo que queda es el módulo = ColActual
-            Add DIECISEIS       / corregir el último Subt que se pasó
-            Store ColActual
+DivEnd,     Add DIECISEIS         / lo que queda es el módulo = ColActual
+            Store ColActual       / corregir el último Subt que se pasó
             JumpI GetFilaCol
 
 
