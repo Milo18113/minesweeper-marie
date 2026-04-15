@@ -635,13 +635,17 @@ LeerReal,   LoadI DirReal   / 2. Leemos el Tablero Real (la verdad oculta)
             Jump EsSeguro   / No es mina. Saltamos a marcarla como revelada.
             Jump GameOver   / ¡Es mina! El jugador pierde.
 
-EsSeguro,   Load UNO         / 4. Es seguro revelar. Actualizamos el Tablero Visible
-            StoreI DirVis   / Cambiamos el estado visible a 1 (revelada)
-			JnS DrawDirVis
+EsSeguro,   Load ValReal         / 4. Es seguro revelar. Actualizamos el Tablero Visible
+            StoreI DirVis   / Cambiamos el estado visible a num real (revelada)
+
+			Load DirVis			/ Cargamos la posición actual en el tablero visual que se dibujará
+			Store CurrVis
+			
+			JnS DrawCurrVis			/ Subrutina
 
 			Load FaltanRevelar
             Subt UNO
-            Store FaltanRevelar / Restamos 1 a las celdas que faltan
+            Store FaltanRevelar 	/ Restamos 1 a las celdas que faltan
 
 			JnS RevelarAreaSR		/ Subrutina de revelar las celdas correspondiente al hacer click
 
@@ -683,8 +687,8 @@ FinTurno,   Jump MainLoop   / Fin del turno (jugada exitosa). Volvemos a pedir i
 
 
 / --- SUBRUTINAS ---
-DrawDirVis, Dec 0			/ Usando DirVis y ValReal como parámetro
-			Load DirVis
+DrawCurrVis, Dec 0			/ Usando CurrVis y ValReal como parámetro
+			Load CurrVis
 			Subt BaseVis		/ Calcular offset
 			Add INIDISPLAY		
 			Store DisplayPos    / Puntero en display con offset
@@ -693,7 +697,7 @@ DrawDirVis, Dec 0			/ Usando DirVis y ValReal como parámetro
 			Load ColReturn
 			StoreI DisplayPos
 			
-			Jump DrawDirVis		/ Acabar subrutina DrawDirVis
+			Jump DrawCurrVis		/ Acabar subrutina DrawDirVis
 
 
 GetColor, 	Dec 0			/ Usando ValReal como parámetro
@@ -760,7 +764,9 @@ Accion,     HEX 0
 Offset,     HEX 0      / Guardará el resultado de (Fila * 16 + Columna)
 Contador,   HEX 0      
 DirVis,     HEX 0      / Guardará la dirección final del Tablero Visible
+CurrVis, 	HEX 0
 DirReal,    HEX 0
+CurrReal, 	Hex 0
 ValReal,    HEX 0     / Valores que sacamos de la tabla real
 DisplayPos, HEX 0		/ Puntero para dibujar en display
 ColReturn,  HEX 0		/ Valor procesado de color según número 
