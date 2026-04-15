@@ -799,12 +799,14 @@ COL_BANDERA,    HEX FFE0    / Amarillo
 COL_MINA,       HEX 0000    / Negro
 
 / Celdas reveladas
-COL_0,          HEX 9CF3    / Gris claro
+COL_0,          HEX BDD7    / Gris claro
 COL_1,          HEX 001F    / Azul
 COL_2,          HEX 07E0    / Verde
 COL_3,          HEX F800    / Rojo
 COL_4,          HEX 000D    / Azul oscuro
-COL_5,          HEX 7800    / Rojo oscuro
+COL_5,          HEX 5800    / Rojo oscuro
 COL_6,          HEX 07FF    / Cian / Turquesa
 COL_7,          HEX 781F    / Violeta
 COL_8,          HEX FFFF    / Blanco
+
+COL_TEST,		HEX 5800  	/ Reemplazar por algún color en ColReturn para hacer pruebas
