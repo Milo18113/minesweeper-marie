@@ -644,17 +644,16 @@ EsSeguro,   Load UNO         / 4. Es seguro revelar. Actualizamos el Tablero Vis
             Skipcond 400        / Si el resultado es 0, ya no faltan celdas
             Jump FinTurno       / Si no es 0, el turno termina normal
             Jump Victoria       / Contador llega a 0 -> Saltamos a ganar
-            Jump FinTurno   
 
-GameOver,   Load INIDISPLAY            / Fin del juego por pisar mina
+GameOver,   Load INIDISPLAY            / Fin del juego por pisar mina, Ini
 			Store Contador
 GOCond,		Load FINDISPLAY
 			Subt Contador
-			SkipCond 0800
+			SkipCond 0800				/ Saltar si no ha llegado al fin del display
 			Halt
-GOLoop,		Load COL_3
+GOLoop,		Load COL_3					/ Color 3, Rojo
 			StoreI Contador
-			Load Contador
+			Load Contador				/ Next pos
 			Add UNO
 			Store Contador
 			Jump GOCond
@@ -686,9 +685,8 @@ Offset,     HEX 0      / Guardará el resultado de (Fila * 16 + Columna)
 Contador,   HEX 0      
 DirVis,     HEX 0      / Guardará la dirección final del Tablero Visible
 DirReal,    HEX 0
-BaseReal,   HEX 100
-BaseVis,    HEX 200
 ValReal,    HEX 0     / Valores que sacamos de la tabla real
+FaltanRevelar, DEC 256 /contador de celdas que debemos abrir para ganar (256 - cantidad de minas)
 
 / --- CONSTANTES ---
 CERO, 		DEC 0
@@ -708,10 +706,10 @@ TRECE, 		DEC 13
 CATORCE, 	DEC 14
 QUINCE, 	DEC 15
 DIECISEIS, 	DEC 16
-DOSCINCOSEIS, HEX 100
 VALORMINA,  DEC -1
-FaltanRevelar, DEC 226 /contador de celdas que debemos abrir para ganar (256 - cantidad de minas)
 
+BaseReal,   HEX 100		/ Inicio de mapa real
+BaseVis,    HEX 200		/ Inicio de mapa visible
 INIDISPLAY, HEX 0F00
 FINDISPLAY, HEX 1000
 
