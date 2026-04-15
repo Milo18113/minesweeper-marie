@@ -635,8 +635,8 @@ LeerReal,   LoadI DirReal   / 2. Leemos el Tablero Real (la verdad oculta)
             Jump EsSeguro   / No es mina. Saltamos a marcarla como revelada.
             Jump GameOver   / ¡Es mina! El jugador pierde.
 
-EsSeguro,   Load ValReal         / 4. Es seguro revelar. Actualizamos el Tablero Visible
-            StoreI DirVis   / Cambiamos el estado visible a num real (revelada)
+EsSeguro,   Load UNO         / 4. Es seguro revelar. Actualizamos el Tablero Visible
+            StoreI DirVis   / Cambiamos el estado visible a 1 (revelada)
 
 			Load DirVis			/ Cargamos la posición actual en el tablero visual que se dibujará
 			Store CurrVis
@@ -697,7 +697,7 @@ DrawCurrVis, Dec 0			/ Usando CurrVis y ValReal como parámetro
 			Load ColReturn
 			StoreI DisplayPos
 			
-			Jump DrawCurrVis		/ Acabar subrutina DrawDirVis
+			JumpI DrawCurrVis		/ Acabar subrutina DrawDirVis
 
 
 GetColor, 	Dec 0			/ Usando ValReal como parámetro
@@ -749,12 +749,200 @@ Ret8, 		Load COL_8
 			Jump GetColorEnd
 			
 GetColorEnd, Store ColReturn
-			Jump GetColor
+			JumpI GetColor
 
 
-RevelarAreaSR, DEC 0
+/ =============================================
+/ RevelarArea
+/ Parámetros: ValReal (valor celda clickeada)
+/ Si ValReal != 0, no hace nada (solo se reveló esa celda)
+/ Si ValReal == 0, flood fill iterativo
+/ =============================================
+RevelarAreaSR, Dec 0
+			Input
+            / Si el valor no es 0, no hay expansión
+            Load ValReal
+            SkipCond 400        / Si ValReal == 0, salta
+            JumpI RevelarAreaSR / Si != 0, retornamos directo
 
-			Jump RevelarAreaSR
+/ --- INICIO DE FLOOD FILL ---
+/ Repetimos pasadas hasta que HuboCambio == 0
+NuevaPasada, Load CERO
+            Store HuboCambio
+
+            / Iniciar loop desde offset 0 (celda 0 del tablero)
+            Load CERO
+            Store CurrOffset
+
+/ --- LOOP PRINCIPAL: recorre las 256 celdas ---
+PasadaLoop, Load CurrOffset
+            Subt DOSCINCO6      / 256
+            SkipCond 000        / Si CurrOffset < 256 0, seguimos
+            Jump FinPasada      / Si >= 256, terminamos esta pasada
+
+            / Calcular CurrVis = BaseVis + CurrOffset
+            Load BaseVis
+            Add CurrOffset
+            Store CurrVis
+
+            / Leer estado en tablero visible
+            LoadI CurrVis
+            Subt UNO            / Estado 1 = revelada
+            SkipCond 400        / Si == 1 (revelada), salta
+            Jump SigCelda       / No está revelada, saltar
+            
+            / Está revelada. Leer valor en tablero real
+            Load BaseReal
+            Add CurrOffset
+            Store CurrReal
+            LoadI CurrReal
+            Store ValActual     / Guardamos valor real de esta celda
+
+            / Si valor != 0, no expande
+            Load ValActual
+            SkipCond 400        / Si == 0, salta
+            Jump SigCelda       / Valor != 0, no expande
+
+            / ---- Esta celda está revelada Y vale 0 ----
+            / Calculamos su fila y columna para chequear bordes
+            JnS GetFilaCol      / FilaActual = CurrOffset / 16, ColActual = CurrOffset % 16
+
+            / Revisar los 4 vecinos ortogonales (arriba, abajo, izq, der)
+            / ---- VECINO ARRIBA (offset - 16) ----
+            Load FilaActual
+            SkipCond 400        / Si FilaActual == 0, no hay vecino arriba
+            Jump RevArriba
+            Jump CheckAbajo
+
+RevArriba,  Load CurrOffset
+            Subt DIECISEIS
+            Store VecOffset
+            JnS RevVecino
+
+            / ---- VECINO ABAJO (offset + 16) ----
+CheckAbajo, Load FilaActual
+            Subt QUINCE
+            SkipCond 400        / Si FilaActual == 15, no hay vecino abajo
+            Jump RevAbajo
+            Jump CheckIzq
+
+RevAbajo,   Load CurrOffset
+            Add DIECISEIS
+            Store VecOffset
+            JnS RevVecino
+
+            / ---- VECINO IZQUIERDA (offset - 1) ----
+CheckIzq,   Load ColActual
+            SkipCond 400        / Si ColActual == 0, no hay vecino izq
+            Jump RevIzq
+            Jump CheckDer
+
+RevIzq,     Load CurrOffset
+            Subt UNO
+            Store VecOffset
+            JnS RevVecino
+
+            / ---- VECINO DERECHA (offset + 1) ----
+CheckDer,   Load ColActual
+            Subt QUINCE
+            SkipCond 400        / Si ColActual == 15, no hay vecino der
+            Jump RevDer
+            Jump SigCelda
+
+RevDer,     Load CurrOffset
+            Add UNO
+            Store VecOffset
+            JnS RevVecino
+
+SigCelda,   Load CurrOffset
+            Add UNO
+            Store CurrOffset
+            Jump PasadaLoop
+
+/ --- FIN DE PASADA ---
+FinPasada,  Load HuboCambio
+            SkipCond 400        / Si HuboCambio == 0, terminamos
+            Jump NuevaPasada    / Si hubo cambio, otra pasada
+            JumpI RevelarAreaSR / Retornar
+
+
+/ =============================================
+/ RevVecino
+/ Parámetro: VecOffset (offset del vecino)
+/ Revela el vecino si está oculto y no es mina
+/ Actualiza HuboCambio y FaltanRevelar
+/ =============================================
+RevVecino,  Dec 0
+
+            / Leer estado visible del vecino
+            Load BaseVis
+            Add VecOffset
+            Store TmpVis        / dirección visible del vecino
+            LoadI TmpVis
+            SkipCond 400        / Si == 0 (oculto), salta
+            JumpI RevVecino     / Ya está revelado o tiene bandera, saltar
+
+            / Leer valor real del vecino
+            Load BaseReal
+            Add VecOffset
+            Store TmpReal       / dirección real del vecino
+            LoadI TmpReal
+            Store ValVecino
+
+            / Si es mina, no revelar
+            Load ValVecino
+            Subt VALORMINA      / VALORMINA = -1
+            SkipCond 400        / Si ValVecino == -1 (mina), salta
+            Jump VecinoSeguro
+            JumpI RevVecino     / Es mina, no revelar
+
+VecinoSeguro, Load UNO		/ Revelar: escribir valores en tablero visible
+            StoreI TmpVis
+
+            / Dibujar en display
+            Load TmpVis
+            Store CurrVis
+            Load ValVecino
+            Store ValReal       / GetColor usa ValReal
+            JnS DrawCurrVis
+
+            / Actualizar contadores
+            Load UNO
+            Store HuboCambio
+
+            Load FaltanRevelar
+            Subt UNO
+            Store FaltanRevelar
+
+            JumpI RevVecino
+
+
+/ =============================================
+/ GetFilaCol
+/ Parámetro: CurrOffset
+/ Resultado: FilaActual = CurrOffset / 16
+/            ColActual  = CurrOffset % 16
+/ =============================================
+GetFilaCol, Dec 0
+            Load CERO
+            Store FilaActual
+            Load CurrOffset
+            Store TmpDiv        / copia para dividir
+
+DivLoop,    Load TmpDiv
+            Subt DIECISEIS
+            SkipCond 800        / Si >= 0 (positivo), seguimos dividiendo
+            Jump DivEnd
+            Store TmpDiv
+            Load FilaActual
+            Add UNO
+            Store FilaActual
+            Jump DivLoop
+
+DivEnd,     Load TmpDiv         / lo que queda es el módulo = ColActual
+            Add DIECISEIS       / corregir el último Subt que se pasó
+            Store ColActual
+            JumpI GetFilaCol
 
 
 / --- VARIABLES ---
@@ -771,6 +959,18 @@ ValReal,    HEX 0     / Valores que sacamos de la tabla real
 DisplayPos, HEX 0		/ Puntero para dibujar en display
 ColReturn,  HEX 0		/ Valor procesado de color según número 
 FaltanRevelar, DEC 256 /contador de celdas que debemos abrir para ganar (256 - cantidad de minas)
+
+HuboCambio, DEC 0
+CurrOffset, HEX 0
+VecOffset,  HEX 0
+FilaActual, DEC 0
+ColActual,  DEC 0
+ValActual,  DEC 0
+ValVecino,  DEC 0
+TmpVis,     HEX 0
+TmpReal,    HEX 0
+TmpDiv,     HEX 0
+DOSCINCO6,  DEC 256
 
 / --- CONSTANTES ---
 CERO, 		DEC 0
