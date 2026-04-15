@@ -856,26 +856,70 @@ RevDer,     Load CurrOffset
 
 			/ Input
 
-/ / Vecinos Diagonales
+// VECINOS DIAGONALES
+			/ ---- VECINO NOROESTE (offset - 17) ----
+CheckNW,    Load FilaActual
+            SkipCond 400        / Si FilaActual == 0, no hay NW
+            Jump CheckNW2
+            Jump CheckNE
+CheckNW2,   Load ColActual
+            SkipCond 400        / Si ColActual == 0, no hay NW
+            Jump RevNW
+            Jump CheckNE
+RevNW,      Load CurrOffset
+            Subt DIECISEIS
+            Subt UNO
+            Store VecOffset
+            JnS RevVecino
 
-/ CheckNW, 	Load ColActual
-/             Subt QUINCE
-/             SkipCond 400        / Si ColActual == 15, no hay vecino der
-/             Jump RevNW
-/             Jump SigCelda
-/ RevNW,		Load CurrOffset
-/             Subt DIECISIETE
-/             Store VecOffset
-/             JnS RevVecino
+			/ ---- VECINO NORESTE (offset - 15) ----
+CheckNE,    Load FilaActual
+            SkipCond 400        / Si FilaActual == 0, no hay NE
+            Jump CheckNE2
+            Jump CheckSW
+CheckNE2,   Load ColActual
+            Subt QUINCE
+            SkipCond 400        / Si ColActual == 15, no hay NE
+            Jump RevNE
+            Jump CheckSW
+RevNE,      Load CurrOffset
+            Subt DIECISEIS
+            Add UNO
+            Store VecOffset
+            JnS RevVecino
 
-/ CheckNE,
-/ RevNE,
+			/ ---- VECINO SUROESTE (offset + 15) ----
+CheckSW,    Load FilaActual
+            Subt QUINCE
+            SkipCond 400        / Si FilaActual == 15, no hay SW
+            Jump CheckSW2
+            Jump CheckSE
+CheckSW2,   Load ColActual
+            SkipCond 400        / Si ColActual == 0, no hay SW
+            Jump RevSW
+            Jump CheckSE
+RevSW,      Load CurrOffset
+            Add DIECISEIS
+            Subt UNO
+            Store VecOffset
+            JnS RevVecino
 
-/ CheckSW,
-/ RevSW
-
-/ CheckSE,
-/ RevSE,
+			/ ---- VECINO SURESTE (offset + 17) ----
+CheckSE,    Load FilaActual
+            Subt QUINCE
+            SkipCond 400        / Si FilaActual == 15, no hay SE
+            Jump CheckSE2
+            Jump SigCelda
+CheckSE2,   Load ColActual
+            Subt QUINCE
+            SkipCond 400        / Si ColActual == 15, no hay SE
+            Jump RevSE
+            Jump SigCelda
+RevSE,      Load CurrOffset
+            Add DIECISEIS
+            Add UNO
+            Store VecOffset
+            JnS RevVecino
 
 SigCelda,   Load CurrOffset
             Add UNO
