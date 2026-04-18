@@ -659,6 +659,12 @@ EsSeguro,   Load UNO         / 4. Es seguro revelar. Actualizamos el Tablero Vis
             Jump FinTurno       / Si no es 0, el turno termina normal
             Jump Victoria       / Contador llega a 0 -> Saltamos a ganar
 
+EndFlag, 	Load FaltanRevelar
+            Subt UNO
+            Store FaltanRevelar 	/ Restamos 1 a las celdas que faltan
+			Skipcond 400        / Si el resultado es 0, ya no faltan celdas
+            Jump FinTurno       / Si no es 0, el turno termina normal
+            Jump Victoria       / Contador llega a 0 -> Saltamos a ganar
 
 / --- GAME OVER Y GANAR ---
 GameOver,   Load INIDISPLAY            / Fin del juego por pisar mina, Ini
@@ -693,7 +699,8 @@ FinTurno,   Jump MainLoop   / Fin del turno (jugada exitosa). Volvemos a pedir i
 
 / --- SUBRUTINAS ---
 DrawCurrVis, Dec 0			/ Usando CurrVis y ValReal (para ColReturn) como parámetro
-			Subt Offset		
+			Load CurrVis
+			Subt BaseVis			
 			Add INIDISPLAY		
 			Store DisplayPos    / Puntero en display con offset
 				
@@ -713,7 +720,7 @@ DrawFlag,	Dec 0			/ Usando CurrVis como parámetro
 			Store ColReturn
 			StoreI DisplayPos
 			
-			JumpI DrawCurrVis		/ Acabar subrutina DrawDirVis
+			Jump EndFlag		/ Acabar subrutina DrawDirVis
 
 
 GetColor, 	Dec 0			/ Usando ValReal como parámetro
