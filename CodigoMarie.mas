@@ -693,8 +693,7 @@ FinTurno,   Jump MainLoop   / Fin del turno (jugada exitosa). Volvemos a pedir i
 
 / --- SUBRUTINAS ---
 DrawCurrVis, Dec 0			/ Usando CurrVis y ValReal (para ColReturn) como parámetro
-			Load CurrVis
-			Subt BaseVis		/ Calcular offset
+			Subt Offset		
 			Add INIDISPLAY		
 			Store DisplayPos    / Puntero en display con offset
 				
