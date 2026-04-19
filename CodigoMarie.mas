@@ -608,10 +608,7 @@ AccionDos,  LoadI DirVis    / Leemos el estado actual de la celda en el tablero 
 			JnS DrawFlag	/ Subrutina con param CurrVis
             Jump FinTurno   / Terminamos el turno
             
-CheckBand,  Load FaltanRevelar
-			Add UNO
-			Store FaltanRevelar
-			LoadI DirVis    / Volvemos a leer el estado actual de la celda
+CheckBand,  LoadI DirVis    / Volvemos a leer el estado actual de la celda
             Subt DOS
             Skipcond 400    / Si el valor era 2 (bandera), salta la siguiente instruccion
             Jump FinTurno   / Si no era ni 0 ni 2, significa que era 1 (revelada). No hacemos nada.
@@ -664,12 +661,6 @@ EsSeguro,   Load UNO         / 4. Es seguro revelar. Actualizamos el Tablero Vis
             Jump FinTurno       / Si no es 0, el turno termina normal
             Jump Victoria       / Contador llega a 0 -> Saltamos a ganar
 
-EndFlag, 	Load FaltanRevelar
-            Subt UNO
-            Store FaltanRevelar 	/ Restamos 1 a las celdas que faltan
-			Skipcond 400        / Si el resultado es 0, ya no faltan celdas
-            Jump FinTurno       / Si no es 0, el turno termina normal
-            Jump Victoria       / Contador llega a 0 -> Saltamos a ganar
 
 / --- GAME OVER Y GANAR ---
 GameOver,   Load INIDISPLAY            / Fin del juego por pisar mina, Ini
@@ -725,7 +716,7 @@ DrawFlag,	Dec 0			/ Usando CurrVis como parámetro
 			Store ColReturn
 			StoreI DisplayPos
 			
-			Jump EndFlag		/ Acabar subrutina DrawDirVis
+			JumpI DrawFlag		/ Acabar subrutina DrawDirVis
 
 
 GetColor, 	Dec 0			/ Usando ValReal como parámetro
@@ -1053,7 +1044,7 @@ CurrReal, 	Hex 0
 ValReal,    HEX 0     / Valores que sacamos de la tabla real
 DisplayPos, HEX 0		/ Puntero para dibujar en display
 ColReturn,  HEX 0		/ Valor procesado de color según número 
-FaltanRevelar, DEC 256 /contador de celdas que debemos abrir para ganar (256 - cantidad de minas)
+FaltanRevelar, DEC 226 /contador de celdas que debemos abrir para ganar (256 - cantidad de minas)
 
 HuboCambio, DEC 0
 CurrOffset, HEX 0
