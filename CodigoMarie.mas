@@ -619,6 +619,8 @@ CheckBand,  Load FaltanRevelar
             / Caso 2: La celda tenia bandera (2). Se la quitamos (la volvemos 0).
             Load CERO
             StoreI DirVis   / Guardamos el 0 en esa direccion para quitar bandera
+			Load COL_NEGRO
+			StoreI DisplayPos
             Jump FinTurno   / Terminamos el turno
 
 / --- LOGICA ACCION 1 (REVELAR CELDA) ---
@@ -1094,6 +1096,7 @@ FINDISPLAY, HEX 1000
 
 / Estados del tablero
 /COL_OCULTA,     HEX 4208    / Gris oscuro
+COL_NEGRO, 		HEX 000
 COL_BANDERA,    HEX FFE0    / Amarillo
 COL_MINA,       HEX 0000    / Negro
 
