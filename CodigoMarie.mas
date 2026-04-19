@@ -608,7 +608,10 @@ AccionDos,  LoadI DirVis    / Leemos el estado actual de la celda en el tablero 
 			JnS DrawFlag	/ Subrutina con param CurrVis
             Jump FinTurno   / Terminamos el turno
             
-CheckBand,  LoadI DirVis    / Volvemos a leer el estado actual de la celda
+CheckBand,  Load FaltanRevelar
+			Add UNO
+			Store FaltanRevelar
+			LoadI DirVis    / Volvemos a leer el estado actual de la celda
             Subt DOS
             Skipcond 400    / Si el valor era 2 (bandera), salta la siguiente instruccion
             Jump FinTurno   / Si no era ni 0 ni 2, significa que era 1 (revelada). No hacemos nada.
