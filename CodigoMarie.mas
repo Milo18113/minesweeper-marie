@@ -1026,10 +1026,20 @@ DivLoop,    Load TmpDiv
 			/ Input
             Jump DivLoop
 
-DivEnd,     Add DIECISEIS         / lo que queda es el módulo = ColActual
-            Store ColActual       / corregir el último Subt que se pasó
-            JumpI GetFilaCol
 
+DivEnd,   	Add DIECISEIS         
+            Store ColActual 
+			Load TmpDiv
+            Subt DIECISEIS
+			SkipCond 400
+			 JumpI GetFilaCol
+			Load TmpDiv
+            Subt DIECISEIS       
+            Store ColActual / lo que queda es el módulo = ColActual
+			Load FilaActual
+            Add UNO
+            Store FilaActual
+			JumpI GetFilaCol
 
 / --- VARIABLES ---
 Fila,       HEX 0
