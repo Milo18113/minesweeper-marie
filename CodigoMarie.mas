@@ -1017,29 +1017,19 @@ GetFilaCol, Dec 0
 
 DivLoop,    Load TmpDiv
             Subt DIECISEIS
-            SkipCond 800        / Si >= 0 (positivo), seguimos dividiendo
+            SkipCond 000        / Si TmpDiv < 16, paramos división
+			Jump DivContinue
             Jump DivEnd
-            Store TmpDiv
+DivContinue, Store TmpDiv
             Load FilaActual
             Add UNO
             Store FilaActual
-			/ Input
             Jump DivLoop
 
+DivEnd,     Load TmpDiv         / lo que queda es el módulo = ColActual
+            Store ColActual       / corregir el último Subt que se pasó
+            JumpI GetFilaCol
 
-DivEnd,   	Add DIECISEIS         
-            Store ColActual 
-			Load TmpDiv
-            Subt DIECISEIS
-			SkipCond 400
-			 JumpI GetFilaCol
-			Load TmpDiv
-            Subt DIECISEIS       
-            Store ColActual / lo que queda es el módulo = ColActual
-			Load FilaActual
-            Add UNO
-            Store FilaActual
-			JumpI GetFilaCol
 
 / --- VARIABLES ---
 Fila,       HEX 0
