@@ -1,5 +1,5 @@
 ORG 0FF
-Jump MainLoop
+Jump MainLoop   /para limpiar mapa, llamar a funcion LimpiarMinas o LimpiarMapa aqui.
 
 / --- INSERTAR MAPA ---
 N100, Dec 65535
@@ -514,6 +514,42 @@ N2FC, Dec 0
 N2FD, Dec 0
 N2FE, Dec 0
 N2FF, Dec 0
+
+
+/ --- FUNCIONES PARA LIMPIAR MAPA ---
+/ LimpiarMinas, Load BaseReal
+/ 			  Add CONT
+/ 			  Store TEMP
+/ 			  Load CONT
+/ 			  Add UNO
+/ 			  Store CONT
+/ 			  Subt DOSCINCO6
+/ 			  SkipCond 000
+/ 			  Jump MainLoop
+/ 			  LoadI TEMP
+/ 			  Add UNO
+/ 			  SkipCond 400
+/ 			  Jump LimpiarMinas
+/ 			  LoadImmi 0
+/ 			  StoreI TEMP
+/ 			  Jump LimpiarMinas
+
+LimpiarMapa, Load BaseReal
+/ 			  Add CONT
+/ 			  Store TEMP
+/ 			  Load CONT
+/ 			  Add UNO
+/ 			  Store CONT
+/ 			  Subt DOSCINCO6
+/ 			  SkipCond 000
+/ 			  Jump MainLoop
+/ 			  LoadImmi 0
+/ 			  StoreI TEMP
+/ 			  Jump LimpiarMapa
+/ PARA QUE VALGAN ESTAS FUNCIONES, DESCOMENTAR LAS VARIABLES QUE ESTAN ABAJO.
+
+
+
 
 / --- INPUTS DEL USUARIO ---
 MainLoop,   Input           / Pedir Fila (0-15)
@@ -1103,3 +1139,7 @@ COL_7,          HEX 781F    / Violeta
 COL_8,          HEX FFFF    / Blanco
 
 COL_TEST,		HEX 5800  	/ Reemplazar por algún color en ColReturn para hacer pruebas
+
+/ --- CONSTANTES PARA FUNCION DE LIMPIADO DE MAPA ---
+/TEMP,   HEX 0
+/CONT, HEX 0
