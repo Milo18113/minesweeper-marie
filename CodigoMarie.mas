@@ -548,7 +548,34 @@ LimpiarMapa, Load BaseReal
 / 			  Jump LimpiarMapa
 / PARA QUE VALGAN ESTAS FUNCIONES, DESCOMENTAR LAS VARIABLES QUE ESTAN ABAJO.
 
+/ MinasDiag1, Load BaseReal
+/ 			  Add CONT2
+/ 			   Store TEMP
+/ 			  Load CONT2
+/ 			  Add UNO  /Si le quito se hace linea recta
+/ 			  Add DIECISEIS
+/ 			  Store CONT2
+/ 			  Subt DOS073
+/ 			  SkipCond 000
+/ 			  Jump MainLoop
+/ 			  LoadImmi 0
+/ 			  Subt UNO
+/ 			  StoreI TEMP
+/ 			  Jump MinasDiag1
 
+/ MinasVert1, Load BaseReal
+/ 			  Add CONT2
+/ 			   Store TEMP
+/ 			  Load CONT2
+/ 			  Add DIECISEIS
+/ 			  Store CONT2
+/ 			  Subt DOS073
+/ 			  SkipCond 000
+/ 			  Jump MainLoop
+/ 			  LoadImmi 0
+/ 			  Subt UNO
+/ 			  StoreI TEMP
+/ 			  Jump MinasVert1
 
 
 / --- INPUTS DEL USUARIO ---
@@ -1143,3 +1170,5 @@ COL_TEST,		HEX 5800  	/ Reemplazar por algún color en ColReturn para hacer prue
 / --- CONSTANTES PARA FUNCION DE LIMPIADO DE MAPA ---
 /TEMP,   HEX 0
 /CONT, HEX 0
+/CONT2, HEX 0
+/DOS073, Dec 273
