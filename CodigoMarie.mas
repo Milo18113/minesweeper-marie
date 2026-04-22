@@ -1,91 +1,91 @@
 ORG 0FF
-Jump MainLoop   /para limpiar mapa, llamar a funcion LimpiarMinas o LimpiarMapa aqui.
+Jump LimpiarMapa   /para limpiar mapa, llamar a funcion LimpiarMinas o LimpiarMapa aqui.
 
 / --- INSERTAR MAPA ---
-N100, Dec 65535
-N101, Dec 4
-N102, Dec 65535
-N103, Dec 2
+N100, Dec 0
+N101, Dec 0
+N102, Dec 0
+N103, Dec 0
 N104, Dec 0
-N105, Dec 0
-N106, Dec 0
-N107, Dec 0
+N105, Dec 1
+N106, Dec 1
+N107, Dec 1
 N108, Dec 0
 N109, Dec 0
-N10A, Dec 0
+N10A, Dec 1
 N10B, Dec 1
 N10C, Dec 1
-N10D, Dec 1
+N10D, Dec 0
 N10E, Dec 1
-N10F, Dec 1
-N110, Dec 65535
-N111, Dec 4
-N112, Dec 65535
-N113, Dec 2
+N10F, Dec 65535
+N110, Dec 1
+N111, Dec 1
+N112, Dec 1
+N113, Dec 0
 N114, Dec 0
-N115, Dec 0
-N116, Dec 1
-N117, Dec 1
-N118, Dec 1
+N115, Dec 2
+N116, Dec 65535
+N117, Dec 2
+N118, Dec 0
 N119, Dec 0
-N11A, Dec 0
-N11B, Dec 2
-N11C, Dec 65535
-N11D, Dec 2
+N11A, Dec 1
+N11B, Dec 65535
+N11C, Dec 1
+N11D, Dec 0
 N11E, Dec 1
-N11F, Dec 65535
+N11F, Dec 1
 N120, Dec 1
-N121, Dec 3
+N121, Dec 65535
 N122, Dec 2
-N123, Dec 2
-N124, Dec 0
-N125, Dec 0
-N126, Dec 1
-N127, Dec 65535
-N128, Dec 2
-N129, Dec 1
-N12A, Dec 0
+N123, Dec 1
+N124, Dec 1
+N125, Dec 2
+N126, Dec 65535
+N127, Dec 3
+N128, Dec 1
+N129, Dec 0
+N12A, Dec 1
 N12B, Dec 2
-N12C, Dec 65535
-N12D, Dec 2
-N12E, Dec 1
-N12F, Dec 1
-N130, Dec 0
-N131, Dec 1
-N132, Dec 65535
-N133, Dec 1
-N134, Dec 0
-N135, Dec 0
-N136, Dec 1
-N137, Dec 2
-N138, Dec 65535
-N139, Dec 1
+N12C, Dec 2
+N12D, Dec 1
+N12E, Dec 0
+N12F, Dec 0
+N130, Dec 2
+N131, Dec 2
+N132, Dec 2
+N133, Dec 65535
+N134, Dec 1
+N135, Dec 1
+N136, Dec 2
+N137, Dec 65535
+N138, Dec 1
+N139, Dec 0
 N13A, Dec 0
-N13B, Dec 1
-N13C, Dec 1
-N13D, Dec 1
+N13B, Dec 2
+N13C, Dec 65535
+N13D, Dec 2
 N13E, Dec 0
 N13F, Dec 0
-N140, Dec 0
-N141, Dec 2
-N142, Dec 2
-N143, Dec 2
-N144, Dec 0
+N140, Dec 65535
+N141, Dec 1
+N142, Dec 1
+N143, Dec 1
+N144, Dec 1
 N145, Dec 0
-N146, Dec 0
+N146, Dec 1
 N147, Dec 1
 N148, Dec 1
-N149, Dec 1
+N149, Dec 0
 N14A, Dec 0
-N14B, Dec 0
-N14C, Dec 0
-N14D, Dec 0
+N14B, Dec 2
+N14C, Dec 65535
+N14D, Dec 2
 N14E, Dec 0
 N14F, Dec 0
-N150, Dec 0
+N150, Dec 2
 N151, Dec 2
-N152, Dec 65535
-N153, Dec 3
+N152, Dec 2
+N153, Dec 1
 N154, Dec 1
 N155, Dec 0
 N156, Dec 0
@@ -93,170 +93,170 @@ N157, Dec 0
 N158, Dec 0
 N159, Dec 0
 N15A, Dec 0
-N15B, Dec 0
-N15C, Dec 0
-N15D, Dec 0
+N15B, Dec 1
+N15C, Dec 1
+N15D, Dec 1
 N15E, Dec 0
 N15F, Dec 0
-N160, Dec 0
-N161, Dec 3
-N162, Dec 65535
+N160, Dec 2
+N161, Dec 65535
+N162, Dec 2
 N163, Dec 65535
 N164, Dec 1
 N165, Dec 0
-N166, Dec 1
-N167, Dec 2
-N168, Dec 2
-N169, Dec 1
+N166, Dec 0
+N167, Dec 0
+N168, Dec 0
+N169, Dec 0
 N16A, Dec 0
-N16B, Dec 0
-N16C, Dec 0
-N16D, Dec 0
+N16B, Dec 1
+N16C, Dec 1
+N16D, Dec 1
 N16E, Dec 0
 N16F, Dec 0
-N170, Dec 0
+N170, Dec 65535
 N171, Dec 2
-N172, Dec 65535
-N173, Dec 3
+N172, Dec 2
+N173, Dec 1
 N174, Dec 1
-N175, Dec 0
+N175, Dec 1
 N176, Dec 1
-N177, Dec 65535
-N178, Dec 65535
-N179, Dec 1
+N177, Dec 1
+N178, Dec 0
+N179, Dec 0
 N17A, Dec 0
-N17B, Dec 0
-N17C, Dec 0
-N17D, Dec 0
+N17B, Dec 1
+N17C, Dec 65535
+N17D, Dec 1
 N17E, Dec 0
 N17F, Dec 0
-N180, Dec 0
-N181, Dec 2
-N182, Dec 2
-N183, Dec 2
+N180, Dec 1
+N181, Dec 1
+N182, Dec 0
+N183, Dec 0
 N184, Dec 0
-N185, Dec 0
-N186, Dec 1
+N185, Dec 1
+N186, Dec 65535
 N187, Dec 2
-N188, Dec 2
-N189, Dec 1
+N188, Dec 1
+N189, Dec 0
 N18A, Dec 0
-N18B, Dec 0
-N18C, Dec 0
-N18D, Dec 0
+N18B, Dec 1
+N18C, Dec 1
+N18D, Dec 1
 N18E, Dec 0
 N18F, Dec 0
 N190, Dec 0
-N191, Dec 1
-N192, Dec 65535
-N193, Dec 2
-N194, Dec 1
-N195, Dec 2
-N196, Dec 1
-N197, Dec 1
-N198, Dec 0
+N191, Dec 0
+N192, Dec 0
+N193, Dec 0
+N194, Dec 0
+N195, Dec 1
+N196, Dec 2
+N197, Dec 65535
+N198, Dec 1
 N199, Dec 0
 N19A, Dec 0
 N19B, Dec 0
 N19C, Dec 0
-N19D, Dec 1
-N19E, Dec 1
-N19F, Dec 1
-N1A0, Dec 0
+N19D, Dec 0
+N19E, Dec 0
+N19F, Dec 0
+N1A0, Dec 1
 N1A1, Dec 1
-N1A2, Dec 2
-N1A3, Dec 3
-N1A4, Dec 65535
-N1A5, Dec 2
-N1A6, Dec 65535
-N1A7, Dec 1
-N1A8, Dec 0
+N1A2, Dec 1
+N1A3, Dec 0
+N1A4, Dec 0
+N1A5, Dec 1
+N1A6, Dec 3
+N1A7, Dec 3
+N1A8, Dec 2
 N1A9, Dec 0
 N1AA, Dec 0
-N1AB, Dec 1
-N1AC, Dec 1
-N1AD, Dec 3
-N1AE, Dec 65535
-N1AF, Dec 2
-N1B0, Dec 0
-N1B1, Dec 0
+N1AB, Dec 0
+N1AC, Dec 0
+N1AD, Dec 0
+N1AE, Dec 0
+N1AF, Dec 0
+N1B0, Dec 1
+N1B1, Dec 65535
 N1B2, Dec 1
-N1B3, Dec 65535
-N1B4, Dec 2
-N1B5, Dec 2
-N1B6, Dec 1
-N1B7, Dec 2
+N1B3, Dec 0
+N1B4, Dec 0
+N1B5, Dec 1
+N1B6, Dec 65535
+N1B7, Dec 65535
 N1B8, Dec 1
-N1B9, Dec 1
+N1B9, Dec 0
 N1BA, Dec 0
-N1BB, Dec 1
-N1BC, Dec 65535
-N1BD, Dec 4
-N1BE, Dec 65535
-N1BF, Dec 2
-N1C0, Dec 0
-N1C1, Dec 0
+N1BB, Dec 0
+N1BC, Dec 0
+N1BD, Dec 0
+N1BE, Dec 1
+N1BF, Dec 1
+N1C0, Dec 1
+N1C1, Dec 1
 N1C2, Dec 1
-N1C3, Dec 1
-N1C4, Dec 1
-N1C5, Dec 0
-N1C6, Dec 0
-N1C7, Dec 1
-N1C8, Dec 65535
+N1C3, Dec 0
+N1C4, Dec 0
+N1C5, Dec 1
+N1C6, Dec 2
+N1C7, Dec 3
+N1C8, Dec 2
 N1C9, Dec 1
 N1CA, Dec 0
-N1CB, Dec 1
-N1CC, Dec 3
-N1CD, Dec 65535
-N1CE, Dec 3
-N1CF, Dec 1
-N1D0, Dec 0
-N1D1, Dec 0
+N1CB, Dec 0
+N1CC, Dec 0
+N1CD, Dec 0
+N1CE, Dec 1
+N1CF, Dec 65535
+N1D0, Dec 1
+N1D1, Dec 1
 N1D2, Dec 1
-N1D3, Dec 1
-N1D4, Dec 1
+N1D3, Dec 0
+N1D4, Dec 0
 N1D5, Dec 0
 N1D6, Dec 0
 N1D7, Dec 1
-N1D8, Dec 1
-N1D9, Dec 2
-N1DA, Dec 1
-N1DB, Dec 1
-N1DC, Dec 2
-N1DD, Dec 65535
+N1D8, Dec 65535
+N1D9, Dec 1
+N1DA, Dec 0
+N1DB, Dec 0
+N1DC, Dec 1
+N1DD, Dec 1
 N1DE, Dec 2
-N1DF, Dec 0
-N1E0, Dec 0
-N1E1, Dec 0
+N1DF, Dec 1
+N1E0, Dec 1
+N1E1, Dec 65535
 N1E2, Dec 1
-N1E3, Dec 65535
-N1E4, Dec 2
-N1E5, Dec 2
-N1E6, Dec 2
-N1E7, Dec 1
-N1E8, Dec 0
-N1E9, Dec 1
-N1EA, Dec 65535
-N1EB, Dec 1
+N1E3, Dec 1
+N1E4, Dec 1
+N1E5, Dec 1
+N1E6, Dec 0
+N1E7, Dec 2
+N1E8, Dec 2
+N1E9, Dec 2
+N1EA, Dec 0
+N1EB, Dec 0
 N1EC, Dec 1
-N1ED, Dec 1
+N1ED, Dec 65535
 N1EE, Dec 1
 N1EF, Dec 0
-N1F0, Dec 0
-N1F1, Dec 0
+N1F0, Dec 1
+N1F1, Dec 1
 N1F2, Dec 1
 N1F3, Dec 1
-N1F4, Dec 2
-N1F5, Dec 65535
-N1F6, Dec 65535
+N1F4, Dec 65535
+N1F5, Dec 1
+N1F6, Dec 0
 N1F7, Dec 1
-N1F8, Dec 0
+N1F8, Dec 65535
 N1F9, Dec 1
-N1FA, Dec 1
-N1FB, Dec 1
-N1FC, Dec 0
-N1FD, Dec 0
-N1FE, Dec 0
+N1FA, Dec 0
+N1FB, Dec 0
+N1FC, Dec 1
+N1FD, Dec 1
+N1FE, Dec 1
 N1FF, Dec 0
 N200, Dec 0
 N201, Dec 0
@@ -515,7 +515,6 @@ N2FD, Dec 0
 N2FE, Dec 0
 N2FF, Dec 0
 
-
 / --- FUNCIONES PARA LIMPIAR MAPA ---
 / LimpiarMinas, Load BaseReal
 / 			  Add CONT
@@ -530,11 +529,11 @@ N2FF, Dec 0
 / 			  Add UNO
 / 			  SkipCond 400
 / 			  Jump LimpiarMinas
-/ 			  LoadImmi 0
+/ 			  Load CERO
 / 			  StoreI TEMP
 / 			  Jump LimpiarMinas
 
-LimpiarMapa, Load BaseReal
+/ LimpiarMapa, Load BaseReal
 / 			  Add CONT
 / 			  Store TEMP
 / 			  Load CONT
@@ -542,17 +541,17 @@ LimpiarMapa, Load BaseReal
 / 			  Store CONT
 / 			  Subt DOSCINCO6
 / 			  SkipCond 000
-/ 			  Jump MainLoop
-/ 			  LoadImmi 0
+/ 			  Jump MainLoop			/ Editar: MainLoop o MinasDiag o MinasVert
+/ 			  Load CERO
 / 			  StoreI TEMP
 / 			  Jump LimpiarMapa
-/ PARA QUE VALGAN ESTAS FUNCIONES, DESCOMENTAR LAS VARIABLES QUE ESTAN ABAJO.
+/ /PARA QUE VALGAN ESTAS FUNCIONES, DESCOMENTAR LAS VARIABLES QUE ESTAN ABAJO.
 
 / MinasDiag1, Load BaseReal
 / 			  Add CONT2
 / 			   Store TEMP
 / 			  Load CONT2
-/ 			  Add UNO  /Si le quito se hace linea recta
+/ 			  Add UNO  				/ Si le quito se hace linea recta
 / 			  Add DIECISEIS
 / 			  Store CONT2
 / 			  Subt DOS073
@@ -581,10 +580,10 @@ LimpiarMapa, Load BaseReal
 / --- INPUTS DEL USUARIO ---
 MainLoop,   Input           / Pedir Fila (0-15)
             Store Fila
-            
+
             Input           / Pedir Columna (0-15)
             Store Columna
-            
+
             Input           / Pedir Accion (Solo 1 o 2)
             Store Accion
 
@@ -621,14 +620,14 @@ CalcDir,    Load CERO       / Paso 1: Inicializar el Offset en 0
             Store Contador
 
 / --- BUCLE DE MULTIPLICACION (Fila * 16) ---
-MultLoop,   Load Contador   
+MultLoop,   Load Contador
             Skipcond 400    / Si el Contador llegó a 0, terminamos de sumar
             Jump Sumar16    / Si no es 0, vamos a sumar 16
             Jump FinMult    / Salimos del bucle si ya es 0
 
 Sumar16,    Load Offset     / Agarramos el Offset que tenemos
             Add DIECISEIS   / Le sumamos 16
-            Store Offset    
+            Store Offset
             Load Contador   / Le restamos 1 al Contador
             Subt UNO
             Store Contador
@@ -641,7 +640,7 @@ FinMult,    Load Offset     / Paso 2: Ya tenemos (Fila * 16). Ahora sumamos la c
 
             / Paso 3: Calcular direccion exacta del tablero visible
             Load BaseVis    / (0x200)
-            Add Offset      
+            Add Offset
             Store DirVis    /  DirVis apunta a la celda exacta en el tablero visible
 
             / Paso 4: Calcular direccion exacta del tablero real
@@ -660,7 +659,7 @@ RuteoAct,   Load Accion
 AccionDos,  LoadI DirVis    / Leemos el estado actual de la celda en el tablero visible
             Skipcond 400    / Si el valor es 0 (oculta), salta la siguiente instruccion
             Jump CheckBand  / Si no es 0, revisamos si ya tiene bandera (o si esta revelada)
-            
+
             / Caso 1: La celda estaba oculta (0). Le ponemos bandera (2).
             Load DOS
             StoreI DirVis   / Guardamos el 2 en esa direccion
@@ -670,12 +669,12 @@ AccionDos,  LoadI DirVis    / Leemos el estado actual de la celda en el tablero 
 			Store CurrVis
 			JnS DrawFlag	/ Subrutina con param CurrVis
             Jump FinTurno   / Terminamos el turno
-            
+
 CheckBand,  LoadI DirVis    / Volvemos a leer el estado actual de la celda
             Subt DOS
             Skipcond 400    / Si el valor era 2 (bandera), salta la siguiente instruccion
             Jump FinTurno   / Si no era ni 0 ni 2, significa que era 1 (revelada). No hacemos nada.
-            
+
             / Caso 2: La celda tenia bandera (2). Se la quitamos (la volvemos 0).
             Load CERO
             StoreI DirVis   / Guardamos el 0 en esa direccion para quitar bandera
@@ -690,7 +689,7 @@ AccionUno,  LoadI DirVis    / 1. Verificamos el estado en el Tablero Visible
             Jump CheckRev   / Si no es 2, verificamos si es 1
             Jump FinTurno   / Es 2 (bandera). No revelamos. Protegemos al jugador.
 
-CheckRev,   LoadI DirVis    
+CheckRev,   LoadI DirVis
             Subt UNO
             Skipcond 400    / Si el valor es 1 (ya esta revelada), saltamos
             Jump LeerReal   / Si no es 1 ni 2, entonces es 0 (oculta). Procedemos a revelar.
@@ -698,9 +697,9 @@ CheckRev,   LoadI DirVis
 
 LeerReal,   LoadI DirReal   / 2. Leemos el Tablero Real (la verdad oculta)
             Store ValReal   / Guardamos el contenido de la celda (FFF o un numero 0-8)
-            
+
             / 3. Verificamos si es una mina (-1 que en hex es FFF)
-            Subt VALORMINA  
+            Subt VALORMINA
             Skipcond 400    / Si el resultado es 0, significa que era una mina
             Jump EsSeguro   / No es mina. Saltamos a marcarla como revelada.
             Jump GameOver   / ¡Es mina! El jugador pierde.
@@ -710,7 +709,7 @@ EsSeguro,   Load UNO         / 4. Es seguro revelar. Actualizamos el Tablero Vis
 
 			Load DirVis			/ Cargamos la posición actual en el tablero visual que se dibujará
 			Store CurrVis
-			
+
 			JnS DrawCurrVis			/ Subrutina
 
 			Load FaltanRevelar
@@ -738,8 +737,8 @@ GOLoop,		Load COL_3					/ Color 3, Rojo
 			Add UNO
 			Store Contador
 			Jump GOCond
-			
-Victoria,   Load INIDISPLAY 
+
+Victoria,   Load INIDISPLAY
             Store Contador
 VicCond,    Load FINDISPLAY
             Subt Contador
@@ -759,26 +758,26 @@ FinTurno,   Jump MainLoop   / Fin del turno (jugada exitosa). Volvemos a pedir i
 / --- SUBRUTINAS ---
 DrawCurrVis, Dec 0			/ Usando CurrVis y ValReal (para ColReturn) como parámetro
 			Load CurrVis
-			Subt BaseVis			
-			Add INIDISPLAY		
+			Subt BaseVis
+			Add INIDISPLAY
 			Store DisplayPos    / Puntero en display con offset
-				
+
 			JnS GetColor		/ Obtener color en base a número en mapa real
 			Load ColReturn
 			StoreI DisplayPos
-			
+
 			JumpI DrawCurrVis		/ Acabar subrutina DrawDirVis
 
 DrawFlag,	Dec 0			/ Usando CurrVis como parámetro
 			Load CurrVis
 			Subt BaseVis		/ Calcular offset
-			Add INIDISPLAY		
+			Add INIDISPLAY
 			Store DisplayPos    / Puntero en display con offset
-				
+
 			Load COL_BANDERA
 			Store ColReturn
 			StoreI DisplayPos
-			
+
 			JumpI DrawFlag		/ Acabar subrutina DrawDirVis
 
 
@@ -829,7 +828,7 @@ Ret7, 		Load COL_7
 			Jump GetColorEnd
 Ret8, 		Load COL_8
 			Jump GetColorEnd
-			
+
 GetColorEnd, Store ColReturn
 			JumpI GetColor
 
@@ -872,7 +871,7 @@ PasadaLoop, Load CurrOffset
             Subt UNO            / Estado 1 = revelada
             SkipCond 400        / Si == 1 (revelada), salta
             Jump SigCelda       / No está revelada, saltar
-            
+
             / Está revelada. Leer valor en tablero real
             Load BaseReal
             Add CurrOffset
@@ -1099,15 +1098,15 @@ Fila,       HEX 0
 Columna,    HEX 0
 Accion,     HEX 0
 Offset,     HEX 0      / Guardará el resultado de (Fila * 16 + Columna)
-Contador,   HEX 0      
+Contador,   HEX 0
 DirVis,     HEX 0      / Guardará la dirección final del Tablero Visible
 CurrVis, 	HEX 0
 DirReal,    HEX 0
 CurrReal, 	Hex 0
 ValReal,    HEX 0     / Valores que sacamos de la tabla real
 DisplayPos, HEX 0		/ Puntero para dibujar en display
-ColReturn,  HEX 0		/ Valor procesado de color según número 
-FaltanRevelar, DEC 226 /contador de celdas que debemos abrir para ganar (256 - cantidad de minas)
+ColReturn,  HEX 0		/ Valor procesado de color según número
+FaltanRevelar, DEC 231 /contador de celdas que debemos abrir para ganar (256 - cantidad de minas)
 
 HuboCambio, DEC 0
 CurrOffset, HEX 0
@@ -1168,7 +1167,7 @@ COL_8,          HEX FFFF    / Blanco
 COL_TEST,		HEX 5800  	/ Reemplazar por algún color en ColReturn para hacer pruebas
 
 / --- CONSTANTES PARA FUNCION DE LIMPIADO DE MAPA ---
-/TEMP,   HEX 0
-/CONT, HEX 0
-/CONT2, HEX 0
-/DOS073, Dec 273
+/ TEMP,   HEX 0
+/ CONT, HEX 0
+/ CONT2, HEX 0
+/ DOS073, Dec 273
