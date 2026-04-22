@@ -1,5 +1,5 @@
 ORG 0FF
-Jump LimpiarMapa   /para limpiar mapa, llamar a funcion LimpiarMinas o LimpiarMapa aqui.
+Jump MainLoop   /para limpiar mapa, llamar a funcion LimpiarMinas o LimpiarMapa aqui.
 
 / --- INSERTAR MAPA ---
 N100, Dec 0
